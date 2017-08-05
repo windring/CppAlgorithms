@@ -1,8 +1,9 @@
+//Activity Selector
 #include "iostream"
 #include "vector"
 using namespace std;
-int _s[]={0,1,3,0,5,3,5,6,8,8,2,12,100};
-int _f[]={0,4,5,6,7,9,9,10,11,12,14,16,100};
+int _s[]={0,1,3,0,5,3,5,6,8,8,2,12};
+int _f[]={0,4,5,6,7,9,9,10,11,12,14,16};
 vector< vector<int> > _c;
 vector< vector<int> > _b;
 void DynamicActivitySelector(int s[],int f[],int n);
@@ -38,35 +39,27 @@ void DynamicActivitySelector(int s[],int f[],int n)
 {
   vector< vector<int> > c(n+1,vector<int>(n+1,0));
   vector< vector<int> > b(n+1,vector<int>(n+1,0));
-  cout<<"dsafasdfasdfsadfdf";
-  for(int i=0;i<n;++i)
+  for(int i=1;i<=n-1;i++)
+    c[i][i+1]=0;
+  for(int l=3;l<=n;l++)
   {
-    cout<<"dfads";
-    c[i][i]=0;
-    c[i][i+1]=0; 
-  }
-  for(int l=0;l<=n;++l)
-  {
-    for(int i=1;i<=n-l;++i)
+    for(int i=1;i<=n-l+1;i++)
     {
-      int j=i+l;
-      int max=0;
-      for(int r=i;r<=j;++r)
+      int j=i+l-1;
+      int t=0;
+      c[i][j]=0;
+      for(int k=i+1;k<=j-1;k++)
       {
-        int lt=r;
-        int lr=r;
-        while(lt>=i&&f[lt]>s[r])
-          lt--;
-        while(lr<=j&&s[lr]<f[r])
-          lr++;
-        int t=c[i][lt]+c[lr][j]+1;
-        if(max<t)
+        if(f[i]<=s[k]&&f[k]<=s[j])
         {
-          max=t;
-          b[i][j]=r;
+          t=c[i][k]+c[k][j]+1;
+        }
+        if(t>c[i][j])
+        {
+          c[i][j]=t;
+          b[i][j]=k;
         }
       }
-      c[i][j]=max;
     }
   }
   _c=c;
@@ -74,25 +67,31 @@ void DynamicActivitySelector(int s[],int f[],int n)
 }
 void Print(int i,int j)
 {
-  if(i==j)
-    return;
-  Print(i,_b[i][j]);
-  cout<<_b[i][j]<<" ";
-  Print(_b[i][j],j);
+  if(_c[i][j]==0)
+    cout<<i<<" "<<j<<endl;
+  else
+  {
+    Print(i,_b[i][j]);
+    Print(_b[i][j],j);
+  }
 }
 int main()
 {
-  RecursiveActivitySelector(0,11);
-  cout<<endl;
-  GreedyActivitySelector(_s,_f,11);
+  cout<<"Dynamic Function"<<endl;
   DynamicActivitySelector(_s,_f,11);
-  for(int i=0;i<=11;i++)
+  for(int i=1;i<=11;i++)
   {
-    for(int j=0;j<=11;j++)
+    for(int j=1;j<=11;j++)
     {
-      cout<<_c[i][j]<<" ";
+      cout<<_c[i][j]<<"|"<<_b[i][j]<<" ";
     }
     cout<<endl;
   }
+  Print(1,11);
+  cout<<"Recursive Function"<<endl;
+  RecursiveActivitySelector(0,11);
+  cout<<endl;
+  cout<<"Greedy Function"<<endl;
+  GreedyActivitySelector(_s,_f,11);
   return 0;
 }
