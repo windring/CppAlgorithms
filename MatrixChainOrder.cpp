@@ -43,7 +43,7 @@ void MatrixChainOrder(int p[])
       }
     }
   }
-  _m=;
+  _m=m;
   _s=s;
 }
 int main()
