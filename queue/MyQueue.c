@@ -23,8 +23,8 @@ void print(struct MyQueue *queue,int len,HANDLE *handle_out){
   }
 }
 int main(){
-  HANDLE handle_out = GetStdHandle(STD_OUTPUT_HANDLE);    //获得标准输出设备句柄  
-  CONSOLE_SCREEN_BUFFER_INFO csbi;                        //定义窗口缓冲区信息结构体  
+  HANDLE handle_out = GetStdHandle(STD_OUTPUT_HANDLE);    //鑾峰緱鏍囧噯杈撳嚭璁惧鍙ユ焺  
+  CONSOLE_SCREEN_BUFFER_INFO csbi;                        //瀹氫箟绐楀彛缂撳啿鍖轰俊鎭粨鏋勪綋  
   GetConsoleScreenBufferInfo(handle_out, &csbi);
   int i=1;
   myQueue.init(&myQueue,myQueue.length);

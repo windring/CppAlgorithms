@@ -1,6 +1,6 @@
 #include "stdlib.h"
 #include "stdbool.h"
-//��ʼ�±�Ϊ1 
+//起始下标为1 
 struct MyStack{
   int length;
   int *S;
