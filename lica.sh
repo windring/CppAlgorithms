@@ -6,6 +6,7 @@ echo>$2
 while((i<$1))
 do
   echo $RANDOM>>$2
+  echo " ">>$2
   ((i++))
 done
 cat $2

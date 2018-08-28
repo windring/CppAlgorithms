@@ -1,0 +1,1 @@
+Nordic Collegiate Programming Contest 2014
